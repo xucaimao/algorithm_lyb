@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/xcm/ClionProjects/sort/inversionpair.h
+iostream
+-
+
+/Users/xcm/ClionProjects/sort/main.cpp
+iostream
+-
+mySort.h
+/Users/xcm/ClionProjects/sort/mySort.h
+sortHelper.h
+/Users/xcm/ClionProjects/sort/sortHelper.h
+inversionpair.h
+/Users/xcm/ClionProjects/sort/inversionpair.h
+quickselection.h
+/Users/xcm/ClionProjects/sort/quickselection.h
+
+/Users/xcm/ClionProjects/sort/mySort.h
+iostream
+-
+ctime
+-
+
+/Users/xcm/ClionProjects/sort/quickselection.h
+mySort.h
+/Users/xcm/ClionProjects/sort/mySort.h
+ctime
+-
+
+/Users/xcm/ClionProjects/sort/sortHelper.h
+iostream
+-
+ctime
+-
+cstdlib
+-
+cassert
+-
+

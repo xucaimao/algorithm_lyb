@@ -1,0 +1,13 @@
+n=100000£¬random
+selection Sort : 11.587 S
+insert Sort2 : 5.976 S
+shell Sort : 0.022 S
+bubble Sort : 46.784 S
+
+Process finished with exit code 0
+
+n=100000£¬100random
+selection Sort : 11.574 S
+insert Sort2 : 0.006 S
+shell Sort : 0.008 S
+bubble Sort : 6.602 S
