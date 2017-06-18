@@ -100,9 +100,11 @@ void testsorttime(){
 }
 
 int main() {
+    //edit this program at 20170618 18:23
+    //edit this program at 20170618 18:27
     //testprog();
-    //testsorttime();
+    testsorttime();
     //test_inversion_pair();
-    test_quickSelection();
+    //test_quickSelection();
     return 0;
 }
