@@ -6,6 +6,8 @@
 #define SORT_QUICKSELECTION_H
 
 #include "mySort.h"
+#include "sortHelper.h"
+//需要用到shellsort 和 isSorted 两个外部函数
 #include <ctime>
 
 //暴力求解快速选择问题(brute force algorithm)

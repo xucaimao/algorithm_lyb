@@ -1,6 +1,6 @@
 //
 // Created by xcm on 17/6/16.
-//
+//求逆序对的数量，暴力方法与归并方法
 #include <iostream>
 
 #ifndef SORT_INVERSIONPAIR_H
@@ -15,6 +15,7 @@ void inversionPairBF(T arr[],int l,int r,long int *sum){
 }
 
 //利用归并排序的求逆序对算法
+//此方法对数组进行归并排序的过程中求解，会对原数组造成改变，因此需要对复制的数组进行操作
 //利用传地址的方式，保证递归过程中总数量统计的正确性
 //否则就要采用全局变量
 template <typename T>

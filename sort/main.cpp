@@ -10,6 +10,7 @@ void test_inversion_pair(){
     long int sum;
     int n=10000;
     int *arr1=sortHelper::generateRandomArray(n,0,n);
+    int *arr2=sortHelper::copyArray(arr1,n);
     //int arr1[]={1,2,3,4,5,6,7,8};
     //int arr1[]={9,8,7,6,5,4,3,2,1};
 
@@ -103,8 +104,8 @@ int main() {
     //edit this program at 20170618 18:23
     //edit this program at 20170618 18:27
     //testprog();
-    testsorttime();
+    //testsorttime();
     //test_inversion_pair();
-    //test_quickSelection();
+    test_quickSelection();
     return 0;
 }
