@@ -25,13 +25,30 @@ void test_inversion_pair(){
 
 //快速选择程序测试
 void test_quickSelection(){
-    //int arr1[]={9,8,7,6,5,4,3,2,1};
+    //int arr1[]={49,38,65,97,76,13,27,48,55,4};
     int n=10000000;
-    int *arr1=sortHelper::generateRandomArray(n,0,n);
-    int *arr2=sortHelper::copyArray(arr1,n);
     int k=4000;
-    cout<<"[  brute force  ]the NO. "<<k<<" data is : "<<quickSelectionBF(arr1,n,k)<<endl;
-    cout<<"[quick selection]the NO. "<<k<<" data is : "<<quickSelectionQM(arr2,n,k)<<endl;
+    cout<<endl<<"data number is : "<<n<<endl;
+
+    int* arr1=sortHelper::generateRandomArray(n,0,n);
+    int* arr2=sortHelper::copyArray(arr1,n);
+    cout<<endl<<" data type is  : random"<<endl;
+    testQuickSelectionTime("brute  force",quickSelectionBF,arr1,n,k);
+    //sortHelper::printArray(arr1,n);
+    testQuickSelectionTime("quick select",quickSelectionQM,arr2,n,k);
+    //sortHelper::printArray(arr2,n);
+    delete [] arr1;
+    delete [] arr2;
+
+    arr1=sortHelper::generateNearlySortedArray(n,100);
+    arr2=sortHelper::copyArray(arr1,n);
+    cout<<endl<<" data type is : nearly random"<<endl;
+    testQuickSelectionTime("brute  force",quickSelectionBF,arr1,n,k);
+    //sortHelper::printArray(arr1,n);
+    testQuickSelectionTime("quick select",quickSelectionQM,arr2,n,k);
+    //sortHelper::printArray(arr2,n);
+    delete[] arr1;
+    delete[] arr2;
 }
 
 

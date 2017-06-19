@@ -185,9 +185,11 @@ int __partition(T arr[],int l,int r){
 }
 
 //双路
+//对数组arr[l...r]部分进行partition操作
+//返回p,使得arr[l...p-1]<arr[p];arr[p+1...r]>arr[p]
 template <typename T>
 int __partition2(T arr[],int l,int r){
-    swap( arr[l],arr[rand()%(l-r+1)+l] );
+    swap( arr[l],arr[rand()%(r-l+1)+l] );//发现一个bug,原来写成（l-r+1）
     T v=arr[l];
     //arr[l+1...i) <=v; arr(j...r] >=v
     int i=l+1,j=r;
