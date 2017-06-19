@@ -1,8 +1,8 @@
 //
 // Created by xcm on 17/6/19.
-//找出一个数组第多少位元素
+//找出一个数组按从小到大顺序的第k个元素
 //暴力求解的思路是先排序
-//优化的方法也是进行排序，但是减少排序的运算量
+//优化的方法是利用快速排序的定义，通过条件判断，减少排序的运算量
 
 #ifndef SORT_QUICKSELECTION_H
 #define SORT_QUICKSELECTION_H
@@ -63,6 +63,7 @@ void __quickSortQM(T arr[],int l,int r,int k){
 template <typename T>
 T quickSelectionQM(T arr[],int n,int k){
     srand(time(NULL));
+    //此处的k-1表示数组的第k个元素
     __quickSortQM(arr,0,n-1,k-1);
     return arr[k-1];
 }
