@@ -31,18 +31,17 @@ void testswaptime(){
 }
 
 int main() {
-    int n=100;
-    int *arr=generateRandomArray(n,0,n-1);
+    int n=30;
+    int *arr=generateRandomArray(n,0,100);
 
     MaxHeap<int> maxheap=MaxHeap<int>(n);
     for(int i=0;i<n;i++)
-        maxheap1.insert(arr[i]);
+        maxheap.insert(arr[i]);
 
     maxheap.treePrint();
 
-    maxheap.getMax2();
-    maxheap.treePrint();
-
-
+    for(int i=0;i<n;i++)
+        cout<<maxheap.getMax2()<<" ";
+    cout<<endl;
     return 0;
 }
