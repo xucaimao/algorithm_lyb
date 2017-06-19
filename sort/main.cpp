@@ -15,6 +15,7 @@ void test_inversion_pair(){
 
     testInversionPairTime("[brute force time]",inversionPairBF,arr1,0,n-1);
     testInversionPairTime("[merge sort time ]",inversionPairMS,arr1,0,n-1);
+    testInversionPairTime2("[merge sort time ]",inversionPairMS,arr2,0,n-1);
 
 }
 
