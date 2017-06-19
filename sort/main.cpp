@@ -7,19 +7,14 @@
 using namespace std;
 //逆序对程序测试
 void test_inversion_pair(){
-    long int sum;
     int n=10000;
     int *arr1=sortHelper::generateRandomArray(n,0,n);
     int *arr2=sortHelper::copyArray(arr1,n);
     //int arr1[]={1,2,3,4,5,6,7,8};
     //int arr1[]={9,8,7,6,5,4,3,2,1};
 
-    sum=0;
-    testInversionPairTime("[brute force time]",inversionPairBF,arr1,0,n-1,&sum);
-    cout<<"The num of inversion pair is : "<<sum<<endl;
-    sum=0;
-    testInversionPairTime("[merge sort time ]",inversionPairMS,arr1,0,n-1,&sum);
-    cout<<"The num of inversion pair is : "<<sum<<endl;
+    testInversionPairTime("[brute force time]",inversionPairBF,arr1,0,n-1);
+    testInversionPairTime("[merge sort time ]",inversionPairMS,arr1,0,n-1);
 
 }
 
@@ -118,11 +113,10 @@ void testsorttime(){
 }
 
 int main() {
-    //edit this program at 20170618 18:23
-    //edit this program at 20170618 18:27
+
     //testprog();
     //testsorttime();
-    //test_inversion_pair();
-    test_quickSelection();
+    test_inversion_pair();
+    //test_quickSelection();
     return 0;
 }

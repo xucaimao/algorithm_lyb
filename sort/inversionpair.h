@@ -59,11 +59,13 @@ void inversionPairMS(T arr[],int l,int r,long int *sum){
 }
 
 template <typename T>
-void testInversionPairTime(string Name, void(*inversionPair)(T[],int,int,long int *),T arr[],int l,int r,long int *sum){
+void testInversionPairTime(string Name, void(*inversionPair)(T[],int,int,long int *),T arr[],int l,int r){
+    long int sum=0;
     clock_t startTime=clock();
-    inversionPair(arr,l,r,sum);
+    inversionPair(arr,l,r,&sum);
     clock_t endTime=clock();
     cout<<Name<<" : "<<double(endTime-startTime)/CLOCKS_PER_SEC<<" S "<<endl;
+    cout<<"The num of inversion pair is : "<<sum<<endl;
     return;
 }
 
