@@ -76,8 +76,8 @@ long int inversionPairMS(T arr[],int l,int r){
     int mid=l+(r-l)/2;          //采用此种方法可以有效避免溢出
     sum_pre=inversionPairMS(arr,l,mid);     //先排序前一半
     sum_next=inversionPairMS(arr,mid+1,r);   //再排序后一半
-
-    if(arr[mid]>arr[mid+1]){        //merge过程
+    //if以内  是merge过程，把原来的子程序并入
+    if(arr[mid]>arr[mid+1]){
         T aux[r-l+1];
         int r_aux=r-l,mid_aux=mid-l;
 
@@ -108,6 +108,7 @@ long int inversionPairMS(T arr[],int l,int r){
         }
 
     }//end of merge
+
     return sum+sum_pre+sum_next;
 }
 
