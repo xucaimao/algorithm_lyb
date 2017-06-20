@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <typeinfo>
 using namespace std;
 
 template <typename T>
@@ -106,12 +107,25 @@ private:
     }
 
 public:
+    //构造函数：生成一个容量为capacity的空的堆
     MaxHeap(int capacity){
         //以数组形式存储的完全二叉树，0元素不使用
         data=new T[capacity+1];
         count=0;
         this->capacity=capacity;
     }
+
+    //构造函数：Heapify形式，从一个数组直接构造一个最大堆
+    MaxHeap(T arr[],int n){
+        data=new T[n+1];
+        capacity=n;
+        for(int i=0;i<n;i++)
+            data[i+1]=arr[i];
+        count=n;
+        for(int i=count/2;i>=1;i--)
+            shiftDown2(i);
+    }
+
 
     ~MaxHeap(){
         delete[] data;

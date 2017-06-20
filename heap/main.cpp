@@ -1,16 +1,18 @@
 #include <iostream>
 #include "myheap.h"
+#include <ctime>
 using namespace std;
 
 //生成有n个元素的随机数组,元素范围为[rangel,ranger]
 int* generateRandomArray(int n,int rangeL,int rangeR){
     assert(rangeL<=rangeR);
     int *arr=new int [n];
-    srand(time(NULL));
+    srand( (unsigned) time(NULL));
     for(int i=0;i<n;i++)
         arr[i]=rand()%(rangeR-rangeL+1)+rangeL;
     return arr;
 }
+
 void testswaptime(){
     int n=100000000;
     int *arr=generateRandomArray(n,0,n-1);
@@ -30,7 +32,7 @@ void testswaptime(){
     cout<<"insert without swap : "<<double(endTime-startTime)/CLOCKS_PER_SEC<<" S "<<endl;
 }
 
-int main() {
+void test1(){
     int n=30;
     int *arr=generateRandomArray(n,0,100);
 
@@ -43,5 +45,39 @@ int main() {
     for(int i=0;i<n;i++)
         cout<<maxheap.getMax2()<<" ";
     cout<<endl;
+}
+
+template <typename T>
+void heapSort(T arr[],int n){
+    MaxHeap<T> maxheap=MaxHeap<T>(n);
+    for(int i=0;i<n;i++)
+        maxheap.insert2(arr[i]);
+    for(int i=n-1;i>=0;i--)
+        arr[i]=maxheap.getMax2();
+}
+
+template <typename T>
+void heapSort2(T arr[],int n){
+    MaxHeap<T> maxheap=MaxHeap<T>(arr,n);
+    for(int i=n-1;i>=0;i--)
+        arr[i]=maxheap.getMax2();
+}
+
+int main() {
+    //windows7中两次随机序列相同
+    srand((unsigned)time(NULL));
+    int n=30;
+    int *arr=generateRandomArray(n,0,100);
+    heapSort(arr,n);
+    for(int i=0;i<n;i++)
+        cout <<arr[i]<<" ";
+    cout<<endl;
+
+    int *arr2=generateRandomArray(n,0,100);
+    heapSort2(arr2,n);
+    for(int i=0;i<n;i++)
+        cout <<arr2[i]<<" ";
+    cout<<endl;
+
     return 0;
 }
