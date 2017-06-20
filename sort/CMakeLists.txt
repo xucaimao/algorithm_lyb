@@ -3,5 +3,11 @@ project(sort)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp mySort.h sortHelper.h inversionpair.h quickselection.h)
+set(SOURCE_FILES
+        inversionpair.h
+        main.cpp
+        mySort.h
+        quickselection.h
+        sortHelper.h maxheap.h)
+
 add_executable(sort ${SOURCE_FILES})

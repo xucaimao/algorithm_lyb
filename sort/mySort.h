@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <ctime>
+#include "maxheap.h"
+
 using namespace std;
 
 //对n个元素的数组arr进行选择法排序
@@ -265,5 +267,24 @@ void quickSort3Way(T arr[],int n){
     srand(time(NULL));
     __quickSort3Way(arr,0,n-1);
 }
+
+//堆排序--插入元素法
+template <typename T>
+void heapSort(T arr[],int n){
+    MaxHeap<T> maxheap=MaxHeap<T>(n);
+    for(int i=0;i<n;i++)
+        maxheap.insert2(arr[i]);
+    for(int i=n-1;i>=0;i--)
+        arr[i]=maxheap.getMax2();
+}
+
+//堆排序--heapify方法
+template <typename T>
+void heapSort2(T arr[],int n){
+    MaxHeap<T> maxheap=MaxHeap<T>(arr,n);
+    for(int i=n-1;i>=0;i--)
+        arr[i]=maxheap.getMax2();
+}
+
 
 #endif //SORT_MYSORT_H
