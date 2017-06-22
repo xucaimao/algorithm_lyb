@@ -115,10 +115,11 @@ public:
     }
 
     //构造函数：Heapify形式，从一个数组直接构造一个最大堆
+    //从后向前，对每一个非叶子节点执行shiftDown操作
     MaxHeap(T arr[],int n){
         data=new T[n+1];
         capacity=n;
-        for(int i=0;i<n;i++)
+        for(int i=0;i<n;i++)//把数组复制到堆中
             data[i+1]=arr[i];
         count=n;
         for(int i=count/2;i>=1;i--)

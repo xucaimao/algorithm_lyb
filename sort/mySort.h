@@ -287,4 +287,36 @@ void heapSort2(T arr[],int n){
 }
 
 
+//对有n个元素的数组arr的第k个元素，执行shiftDown操作(小元素下移)
+template <typename T>
+void __shiftDown(T arr[],int n,int k){
+    while(2*k+1 < n){//左孩子存在
+        int j=2*k+1;//j初始指向左孩子
+        if(j+1 < n && arr[j]<arr[j+1])//右孩子存在且右孩子大于左孩子
+            j+=1;   //j指向右孩子
+        if(arr[k]>=arr[j])//父节点大于孩子节点
+            break;
+        swap(arr[k],arr[j]);
+        k=j;
+    }
+}
+
+//原地堆(最大堆)排序
+template <typename T>
+void heapSort3(T arr[],int n){
+    //heapfy,构建一个堆
+    for(int i=(n-1)/2;i>=0;i--)
+        __shiftDown(arr,n,i);
+
+    for(int i=n;i>=1;i--){
+        //堆中的最大元素arr[0]与最末元素arr[n-1]进行交换
+        //堆的长度越来越短，后端有序的数组越来越长
+        swap(arr[0],arr[i-1]);
+        //对前n-1个元素的堆，执行shiftDown操作
+        __shiftDown(arr,i-1,0);
+    }
+
+}
+
+
 #endif //SORT_MYSORT_H

@@ -75,7 +75,7 @@ void testsorttime(){
     sortHelper::testSort("Quick Sort 2 Ways", quickSort, arr2, n);
     sortHelper::testSort("Quick Sort 3 Ways", quickSort3Way, arr3, n);
     sortHelper::testSort("Heap sort 1", heapSort, arr4, n);
-    sortHelper::testSort("Heap sort 2", heapSort2, arr5, n);
+    sortHelper::testSort("Heap sort 3", heapSort3, arr5, n);
 
     delete[] arr1;
     delete[] arr2;
@@ -99,7 +99,7 @@ void testsorttime(){
     sortHelper::testSort("Quick Sort 2 ways", quickSort, arr2, n);
     sortHelper::testSort("Quick Sort 3 Ways", quickSort3Way, arr3, n);
     sortHelper::testSort("Heap sort 1", heapSort, arr4, n);
-    sortHelper::testSort("Heap sort 2", heapSort2, arr5, n);
+    sortHelper::testSort("Heap sort 3", heapSort3, arr5, n);
 
     delete[] arr1;
     delete[] arr2;
@@ -122,7 +122,7 @@ void testsorttime(){
     sortHelper::testSort("Quick Sort 2 Ways", quickSort, arr2, n);
     sortHelper::testSort("Quick Sort 3 Ways", quickSort3Way, arr3, n);
     sortHelper::testSort("Heap sort 1", heapSort, arr4, n);
-    sortHelper::testSort("Heap sort 2", heapSort2, arr5, n);
+    sortHelper::testSort("Heap sort 3", heapSort3, arr5, n);
 
     delete[] arr1;
     delete[] arr2;
