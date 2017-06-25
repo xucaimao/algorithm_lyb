@@ -7,7 +7,8 @@ using namespace std;
 int* generateRandomArray(int n,int rangeL,int rangeR){
     assert(rangeL<=rangeR);
     int *arr=new int [n];
-    srand( (unsigned) time(NULL));
+    //srand( (unsigned) time(NULL) );
+    srand( (unsigned) rand() );
     for(int i=0;i<n;i++)
         arr[i]=rand()%(rangeR-rangeL+1)+rangeL;
     return arr;
@@ -65,15 +66,22 @@ void heapSort2(T arr[],int n){
 
 int main() {
     //windows7中两次随机序列相同
-    srand((unsigned)time(NULL));
     int n=30;
-    int *arr=generateRandomArray(n,0,100);
+    int *arr=generateRandomArray(n,10,99);
+    int *arr2=generateRandomArray(n,10,99);
+    for(int i=0;i<n;i++)
+        cout <<arr[i]<<" ";
+    cout<<endl;
+    for(int i=0;i<n;i++)
+        cout <<arr2[i]<<" ";
+    cout<<endl;
+
     heapSort(arr,n);
     for(int i=0;i<n;i++)
         cout <<arr[i]<<" ";
     cout<<endl;
 
-    int *arr2=generateRandomArray(n,0,100);
+
     heapSort2(arr2,n);
     for(int i=0;i<n;i++)
         cout <<arr2[i]<<" ";
