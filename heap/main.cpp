@@ -8,6 +8,8 @@ int* generateRandomArray(int n,int rangeL,int rangeR){
     assert(rangeL<=rangeR);
     int *arr=new int [n];
     //srand( (unsigned) time(NULL) );
+    //上面的程序会造成两次生成的随机序列相同，因为time返回值只精确到秒，
+    //会造成两次随机函数执行时time的返回值相同的情况，进而使得随机序列相同
     srand( (unsigned) rand() );
     for(int i=0;i<n;i++)
         arr[i]=rand()%(rangeR-rangeL+1)+rangeL;
