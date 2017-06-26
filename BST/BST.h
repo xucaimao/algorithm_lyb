@@ -30,6 +30,60 @@ private:
     Node* root;
     int count;
 
+    //递归形式
+    // 向以node为根节点的二叉搜索树，插入节点(key,value)
+    //返回插入新节点后的二叉搜索树的根
+    Node* insert(Node* node,Key key,Value value){
+        if(node==NULL){
+            count++;
+            //新生成一个节点并利用构造函数为节点赋值
+            //cout<<"add "<<key<<" "<<endl;
+            return new Node(key,value);
+        }
+        if(key == node->key)
+            node->value=value;
+        else if(key < node->key)
+            node->left=insert(node->left,key,value);
+        else
+            node->right=insert(node->right,key,value);
+
+        //return node;
+    }
+
+    //前序遍历打印二叉树
+    void printBST(Node* node){
+        if(node== NULL)
+            return;
+
+        printBST(node->left);
+        cout<< node->key <<" ";
+        printBST(node->right);
+    }
+
+    //查看在以node为根的二叉搜索树中，是否包含键值为key的节点
+    bool contain(Node* node,Key key){
+        if(node == NULL)
+            return false;
+
+        if(node->key == key )
+            return true;
+        else if(key < node->key)
+            return contain(node->left,key);
+        else
+            return contain(node->right,key);
+
+    }
+
+    Value* search(Node* node,Key key){
+        if(node == NULL)
+            return NULL;
+        if(key == node->key)
+            return &(node->value);
+        else if(key < node->key )
+            return search(node->left,key);
+        else
+            return search(node->right,key);
+    }
 
 public:
     BST(){
@@ -108,62 +162,6 @@ public:
         if(root==NULL)
             cout<<"ERROR: the tree is empty!"<<endl;
         printBST(root);
-    }
-
-private:
-    //递归形式
-    // 向以node为根节点的二叉搜索树，插入节点(key,value)
-    //返回插入新节点后的二叉搜索树的根
-    Node* insert(Node* node,Key key,Value value){
-        if(node==NULL){
-            count++;
-            //新生成一个节点并利用构造函数为节点赋值
-            //cout<<"add "<<key<<" "<<endl;
-            return new Node(key,value);
-        }
-        if(key == node->key)
-            node->value=value;
-        else if(key < node->key)
-            node->left=insert(node->left,key,value);
-        else
-            node->right=insert(node->right,key,value);
-
-        //return node;
-    }
-
-    //前序遍历打印二叉树
-    void printBST(Node* node){
-        if(node== NULL)
-            return;
-
-        printBST(node->left);
-        cout<< node->key <<" ";
-        printBST(node->right);
-    }
-
-    //查看在以node为根的二叉搜索树中，是否包含键值为key的节点
-    bool contain(Node* node,Key key){
-        if(node == NULL)
-            return false;
-
-        if(node->key == key )
-            return true;
-        else if(key < node->key)
-            return contain(node->left,key);
-        else
-            return contain(node->right,key);
-
-    }
-
-    Value* search(Node* node,Key key){
-        if(node == NULL)
-            return NULL;
-        if(key == node->key)
-            return &(node->value);
-        else if(key < node->key )
-            return search(node->left,key);
-        else
-            return search(node->right,key);
     }
 
 

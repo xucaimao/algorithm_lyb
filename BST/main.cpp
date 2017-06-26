@@ -23,7 +23,7 @@ int* generateRandomArray(int n,int rangeL,int rangeR){
 void test(){
     //两种定义形式都是可以的
     //BST<int,int> bst=BST<int,int>();
-    class  BST<int,int> bst;
+    BST<int,int> bst;
     int arr[]={41,22,58,15,33,50,60,13,28,37,42,53};
     //        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11}
     int n=12;
