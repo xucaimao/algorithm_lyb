@@ -2,6 +2,7 @@
 // Created by xcm on 17/6/25.
 //
 #include <iostream>
+#include <queue>
 using namespace std;
 
 #ifndef BST_BST_H
@@ -23,7 +24,7 @@ private:
             this->left=this->right=NULL;
             //在这里折腾了我很久，因为把right写成了left
             //调试了很久也没找到错误原因，对比程序才最终发现
-            //粗心害死人
+            //粗心害死人!!!
         }
     };
 
@@ -50,13 +51,13 @@ private:
         //return node;
     }
 
-    //前序遍历打印二叉树
+    //中序遍历打印二叉树
     void printBST(Node* node){
         if(node== NULL)
             return;
 
         printBST(node->left);
-        cout<< node->key <<" ";
+        cout<< "( "<<node->key<<" , "<<node->value <<" ) ";
         printBST(node->right);
     }
 
@@ -74,15 +75,29 @@ private:
 
     }
 
+    //递归的search
     Value* search(Node* node,Key key){
         if(node == NULL)
             return NULL;
         if(key == node->key)
+            // 返回值的形式是个重点。既考虑了类的封装，
+            // 隐藏了数据，又保证了编程的便捷。(没找到则返回NULL)
             return &(node->value);
         else if(key < node->key )
             return search(node->left,key);
         else
             return search(node->right,key);
+    }
+
+    //后序遍历释放节点空间
+    void destroy(Node* node){
+        if(node==NULL)
+            return;
+
+        destroy(node->left);
+        destroy(node->right);
+        delete node;
+        count--;
     }
 
 public:
@@ -91,7 +106,7 @@ public:
         count=0;
     }
     ~BST(){
-        //TODO
+        destroy(root);
     }
     int size(){
         return count;
@@ -148,23 +163,86 @@ public:
         }
     }
 
+    //递归contain的调用接口
     bool contain(Key key){
         return contain(root,key);
     }
 
+    //非递归的contain函数
+    bool contain2(Key key){
+        Node* p=root;
+        while(p!=NULL){
+            if(key==p->key)
+                return true;
+            else if(key<p->key)
+                p=p->left;
+            else
+                p=p->right;
+        }
+        return false;
+    }
+
+    //递归search的调用接口
     Value* search(Key key){
         return search(root,key);
     }
 
-    //前序遍历打印二叉树
-    void printBST(){
-        cout<<"Begin to printing..."<<endl;
+    //非递归的search
+    Value* search2(Key key){
+        Node* p=root;
+        while(p!=NULL){
+            if(key==p->key)
+                return &(p->value);
+            else if(key < p->key)
+                p=p->left;
+            else
+                p=p->right;
+        }
+        return NULL;
+    }
+
+    //中序遍历打印二叉树的接口
+    void PrintBST(){
+        //cout<<"Begin to printing..."<<endl;
         if(root==NULL)
             cout<<"ERROR: the tree is empty!"<<endl;
         printBST(root);
+        cout<<endl;
+    }
+
+    //
+    void BFSPrintBST(){
+        queue<Node*> q;
+        Node* p;
+        q.push(root);
+        while( !q.empty() ){
+            //pop函数没有返回值，取队列首元素需用front函数
+            p=q.front();
+            q.pop();
+
+            if(p->left != NULL)
+                q.push(p->left);
+            if(p->right !=NULL)
+                q.push(p->right);
+            cout<< "( "<<p->key<<" , "<<p->value <<" ) ";
+        }
+        cout<<endl;
+    }
+
+    Value MinKey(){
+        Node* p=root;
+        while(p->left)
+            p=p->left;
+        return p->value;
     }
 
 
+    Value MaxKey(){
+        Node* p=root;
+        while(p->right)
+            p=p->right;
+        return p->value;
+    }
 };
 
 #endif //BST_BST_H

@@ -19,7 +19,7 @@ int* generateRandomArray(int n,int rangeL,int rangeR){
     return arr;
 }
 
-//测试程序
+//测试contain程序
 void test(){
     //两种定义形式都是可以的
     //BST<int,int> bst=BST<int,int>();
@@ -35,22 +35,85 @@ void test(){
 
     cout<<"begin insert data to tree..."<<endl;
     for(int i=0;i<n;i++)
-        bst.insert2(arr[i],1);
+        bst.insert2(arr[i],i);
 
-    bst.printBST();
+    bst.PrintBST();
 
     int target;
     while(cin>>target && target!=-1){
         cout << "The element [ "<<target <<" ]  ";
-        if( bst.contain(target) )
+        if( bst.contain2(target) )
             cout<<"exist!"<<endl;
         else
             cout<<"not exist!"<<endl;
     }
 }
 
+//测试search
+void test2(){
+    //两种定义形式都是可以的
+    //BST<int,int> bst=BST<int,int>();
+    BST<int,int> bst;
+    //int arr[]={41,22,58,15,33,50,60,13,28,37,42,53};
+    //        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11}
+    int n=12;
+    int* arr=generateRandomArray(n,1,99);
+    cout<<"The data is : "<<endl;
+    for(int i=0;i<n;i++)
+        cout<<arr[i]<<" ";
+    cout<<endl;
+
+    cout<<"begin insert data to tree..."<<endl;
+    for(int i=0;i<n;i++)
+        bst.insert2(arr[i],i);
+
+    bst.PrintBST();
+
+    int target;
+    int* v;
+    while(cin>>target && target!=-1){
+        v=bst.search2(target);
+        cout << "The element [ "<<target <<" ]  ";
+        if( v==NULL )
+            cout<<"not exist!"<<endl;
+        else
+            cout<<"'s value is : "<< *v <<endl;
+    }
+}
+
+//测试BFS
+void test3(){
+    //两种定义形式都是可以的
+    //BST<int,int> bst=BST<int,int>();
+    BST<int,int> bst;
+    int arr[]={41,22,58,15,33,50,60,13,28,37,42,53};
+    //        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11}
+    int n=12;
+    //int* arr=generateRandomArray(n,1,99);
+    cout<<"The data is : "<<endl;
+    for(int i=0;i<n;i++)
+        cout<<arr[i]<<" ";
+    cout<<endl;
+
+    cout<<"begin insert data to tree..."<<endl;
+    for(int i=0;i<n;i++)
+        bst.insert2(arr[i],i);
+
+    cout<<"DFS In Order printing..."<<endl;
+    bst.PrintBST();
+
+    cout<<"BFS printing..."<<endl;
+    bst.BFSPrintBST();
+
+
+    cout<<"The MIN key is : "<<bst.MinKey()<<endl;
+
+    cout<<"The MAX key is : "<<bst.MaxKey()<<endl;
+}
+
+
 int main() {
 
-    test();
+    test3();
     return 0;
 }
