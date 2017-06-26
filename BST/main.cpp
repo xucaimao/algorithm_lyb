@@ -19,10 +19,11 @@ int* generateRandomArray(int n,int rangeL,int rangeR){
     return arr;
 }
 
-
-int main() {
-    BST<int,int> bst=BST<int,int>();
-    //class  BST<int,int> bst;
+//测试程序
+void test(){
+    //两种定义形式都是可以的
+    //BST<int,int> bst=BST<int,int>();
+    class  BST<int,int> bst;
     int arr[]={41,22,58,15,33,50,60,13,28,37,42,53};
     //        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11}
     int n=12;
@@ -32,8 +33,11 @@ int main() {
         cout<<arr[i]<<" ";
     cout<<endl;
 
+    cout<<"begin insert data to tree..."<<endl;
     for(int i=0;i<n;i++)
-        bst.insert(arr[i],1);
+        bst.insert2(arr[i],1);
+
+    bst.printBST();
 
     int target;
     while(cin>>target && target!=-1){
@@ -43,9 +47,10 @@ int main() {
         else
             cout<<"not exist!"<<endl;
     }
+}
 
-    //bst.printBST();
+int main() {
 
-
+    test();
     return 0;
 }
