@@ -141,10 +141,14 @@ private:
 
     Node* delMax(Node* node){
         if(node->right==NULL){
+            //找到最大节点
             Node* next=NULL;
+            if(node->left)
+                next=node->left;
+
             //如果最大节点存在左子树(左子树中节点的值都大于该节点)，保存左子树的节点
-            //如果不存在，该值为NULL。次实现比上面delMin的更简洁
-            next=node->left;
+            //如果不存在，该值为NULL。
+
             delete node;
             count--;
             return next;
@@ -192,6 +196,15 @@ private:
         }
     }
 
+    //返回二叉树的最大深度
+    int getMaxDeepth(Node* node){
+        if(node==NULL)
+            return 0;
+        int dl=getMaxDeepth(node->left);
+        int dr=getMaxDeepth(node->right);
+        return max(dl,dr)+1;
+    }
+
 public:
     BST(){
         root=NULL;
@@ -217,6 +230,7 @@ public:
         if(root==NULL){
             //根节点需要单独处理
             root=new Node(key,value);//生成新节点
+            count++;    //此处少了，发现bug
             return;
         }
 
@@ -298,12 +312,15 @@ public:
         //cout<<"Begin to printing..."<<endl;
         if(root==NULL)
             cout<<"ERROR: the tree is empty!"<<endl;
-        printBST(root);
-        cout<<endl;
+        else{
+            printBST(root);
+            cout<<endl;
+        }
     }
 
-    //广度遍历
-    void BFSPrintBST(){
+    //广度遍历，按树形打印二叉树
+    void BFSPrint(){
+        //TODO
         queue<Node*> q;
         Node* p;
         q.push(root);
@@ -347,12 +364,12 @@ public:
 
     void delMin(){
         if(root)    //根不为空才进行操作
-            delMin(root);
+           root=delMin(root);   //少了root=  好大一个bug
     }
 
     void delMax(){
         if(root)    //根不为空才进行操作
-            delMax(root);
+            root=delMax(root);  //少了root=  好大一个bug
     }
 
     bool delNode(Key key){
@@ -364,6 +381,14 @@ public:
         else
             return false;
     }
+
+    int getMaxDeepth(){
+        return getMaxDeepth(root);
+    }
+
+
+
+
 };
 
 #endif //BST_BST_H

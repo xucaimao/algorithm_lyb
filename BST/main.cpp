@@ -128,18 +128,20 @@ void test4(){
     cout<<"begin insert data to tree..."<<endl;
     for(int i=0;i<n;i++)
         bst.insert2(arr[i],i);
-
-    cout<<"DFS In Order printing..."<<endl;
+    cout<<"The number of elements is : "<<bst.size()<<endl;
+    cout<<"The data is : "<<endl;
     bst.PrintBST();
 
-    //bst.delMin();
-    //bst.delMax();
-    //cout<<"After delete MIN and MAX ,the tree is ..."<<endl;
+    while(!bst.isEmpty()){
+        bst.delMin();
+        bst.delMax();
+        cout<<"After delete MIN and MAX ,the tree is ..."<<endl;
+        bst.PrintBST();
+        cout<<"The number of elements is : "<<bst.size()<<endl;
+        cout<<"The tree deepth is : "<<bst.getMaxDeepth()<<endl<<endl;
+    }
 
 
-    bst.delNode(22);
-    cout<<"After delete 22 ,the tree is ..."<<endl;
-    bst.PrintBST();
 
 }
 
