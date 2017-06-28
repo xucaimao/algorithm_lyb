@@ -4,6 +4,7 @@
 #include <iostream>
 #include <queue>
 #include <cassert>
+#include <cmath>
 using namespace std;
 
 #ifndef BST_BST_H
@@ -318,24 +319,68 @@ public:
         }
     }
 
+    int widthOfNum(Key key){
+        //本程序按int型返回数组的位数
+        int n=0;
+        while(key>0){
+            n++;
+            key/=10;
+        }
+        return n;
+    }
+
     //广度遍历，按树形打印二叉树
+    //构建一个完全二叉树
     void BFSPrint(){
         //TODO
-        queue<Node*> q;
-        Node* p;
-        q.push(root);
-        while( !q.empty() ){
-            //pop函数没有返回值，取队列首元素需用front函数
-            p=q.front();
-            q.pop();
-
-            if(p->left != NULL)
-                q.push(p->left);
-            if(p->right !=NULL)
-                q.push(p->right);
-            cout<< "( "<<p->key<<" , "<<p->value <<" ) ";
+        int deep=getMaxDeepth(root);    //二叉树的最大深度
+        int sz=(int) pow( 2, deep );    //二叉树的完全形式的节点数+1
+        Key key[]=new Key [sz];         //一顺序数组的形式存储要打印的值
+        bool hasnode[]=new bool [sz];   //该节点是否存在的标志数组
+        for(int i=0;i<sz;i++){
+            hasnode=false;
         }
-        cout<<endl;
+
+
+        queue<Node*> nodeq;             //节点序列
+        queue<int> posq;                //节点对于在完全二叉树中的位置
+        Node* node;
+        int pos;
+        int maxkey=root->key;
+        nodeq.push(root);
+        posq.push(1);                   //第1个元素作为根节点
+        while( !nodeq.empty() ){        //开始构建完全二叉树的数组形式
+            //pop函数没有返回值，取队列首元素需用front函数
+            node=nodeq.front();
+            nodeq.pop();
+            pos=posq.front();
+            posq.pop();
+
+            key[pos]=node->key;
+            if(node->key > maxkey)
+                maxkey=node->key;       //取得最大值，用于计算打印宽度
+            hasnode[pos]=true;
+
+            if(node->left != NULL){
+                nodeq.push(node->left);
+                posq.push(pos*2);   //左子孩子在完全二叉树中的位置是父节点的位置*2
+
+            }
+
+            if(node->right !=NULL){
+                nodeq.push(node->right);
+                posq.push(pos*2+1); //右子孩子在完全二叉树中的位置是父节点的位置*2+1
+            }
+
+        }   //完全二叉树的顺序存储数组构建结束
+
+
+
+        int wkey=widthOfNum(maxkey);
+        for(int i=1;i<sz;i++){//开始打印
+
+        }
+
     }
 
     //非递归的查找最小值
