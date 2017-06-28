@@ -375,18 +375,7 @@ public:
 
         }   //完全二叉树的顺序存储数组构建结束
 
-        // 算法基本思路：
-        // (1)：创建一个水平数组，水平数组的长度为 "满二叉树" 中的节点总数，将二叉树的所有节点，按满二叉树的样子，投影到水平数组上，
-        // 每个节点在水平数组中都对就一个位置。
-        // (2)：我们总结一下，对于每一个层级，映射到水平数组后，第一个节点的开始下标=s，本层任意相邻节点的步长(间距)=d，如果下所示
-        // 层级   起始下标        步长
-        // 1    2^3-1=7     2^4=16
-        // 2    2^2-1=3     2^3=8
-        // 3    2^1-1=1     2^2=4
-        // 4    2^0-1=0     2^1=2
-        // (3)：有了以上数据，我们可以计算出，任意一层，任意一节点在水平数组中的下标，
-        // 下标=起始下标+(该节点所在层次-1)*步长
-        // (4)：OK，每一次每个节点的位置确定了，树形图自然也确定了。
+
         int space=2;                                //数字之间的空格
         int wkey=widthOfNum(maxkey);                //数字的长度
         cout<<"The width of node is: "<<wkey<<" space is : "<<space<<endl;
@@ -395,14 +384,14 @@ public:
         int i=1;//节点索引
         for(int d=1;d<=deep;d++){                   //按层打印
             int n=pow(2,deep-d);
-            int distanceOfNode=n*space+(n-1)*wkey;  //计算每层的间距
+            int distanceOfNode=n*space+(n-1)*wkey;  //计算每层节点之间的间距
             //if(distanceOfNode%2 ==1) distanceOfNode++;
             //cout<<"d== "<<d<<" dist= "<<distanceOfNode<<endl;
 
             int dist;                               //实际打印宽度
             for(int j=1;j<=pow(2,d-1);j++){         //打印每层的元素
                 if(j==1)                            //打印第一个元素
-                    dist=distanceOfNode/2+space;
+                    dist=distanceOfNode/2;
                 else
                     dist=distanceOfNode+space;
                 if(hasnode[i])
@@ -418,6 +407,96 @@ public:
             cout<<endl;
         }
     }
+
+    //广度遍历，按树形打印二叉树
+    //构建一个完全二叉树
+    void BFSPrint2(){
+        //TODO
+        int deep=getMaxDeepth(root);    //二叉树的最大深度
+        int sz=(int) pow( 2, deep );    //二叉树的完全形式的节点数+1
+        Key* key=new Key [sz];         //一顺序数组的形式存储要打印的值
+        bool* hasnode=new bool [sz];   //该节点是否存在的标志数组
+        for(int i=0;i<sz;i++){
+            hasnode[i]=false;
+        }
+
+
+        queue<Node*> nodeq;             //节点序列
+        queue<int> posq;                //节点在完全二叉树中的位置
+        Node* node;
+        int pos;
+        int maxkey=root->key;
+        nodeq.push(root);
+        posq.push(1);                   //第1个元素作为根节点
+        while( !nodeq.empty() ){        //开始构建完全二叉树的数组形式
+            //pop函数没有返回值，取队列首元素需用front函数
+            node=nodeq.front();
+            nodeq.pop();
+            pos=posq.front();
+            posq.pop();
+
+            key[pos]=node->key;
+            if(node->key > maxkey)
+                maxkey=node->key;       //取得最大值，用于计算打印宽度
+            hasnode[pos]=true;
+
+            if(node->left != NULL){
+                nodeq.push(node->left);
+                posq.push(pos*2);   //左子孩子在完全二叉树中的位置是父节点的位置*2
+
+            }
+
+            if(node->right !=NULL){
+                nodeq.push(node->right);
+                posq.push(pos*2+1); //右子孩子在完全二叉树中的位置是父节点的位置*2+1
+            }
+
+        }   //完全二叉树的顺序存储数组构建结束
+
+        // 算法基本思路：
+        // (1)：创建一个水平数组，水平数组的长度为 "满二叉树" 中的节点总数，将二叉树的所有节点，按满二叉树的样子，投影到水平数组上，
+        // 每个节点在水平数组中都对就一个位置。
+        // (2)：我们总结一下，对于每一个层级，映射到水平数组后，第一个节点的开始下标=s，本层任意相邻节点的步长(间距)=d，如果下所示
+        // 层级   起始下标        步长
+        // 1    2^3-1=7     2^4=16
+        // 2    2^2-1=3     2^3=8
+        // 3    2^1-1=1     2^2=4
+        // 4    2^0-1=0     2^1=2
+        // (3)：有了以上数据，我们可以计算出，任意一层，任意一节点在水平数组中的下标，
+        // 下标=起始下标+(该节点所在层次-1)*步长
+        // (4)：OK，每一次每个节点的位置确定了，树形图自然也确定了。
+
+        int space=2;                                //数字之间的空格
+        int wkey=widthOfNum(maxkey);                //数字的长度
+        cout<<"The width of node is: "<<wkey<<" space is : "<<space<<endl;
+        cout<<"The Tree is : "<<endl;
+
+        int i=1;//节点索引
+        for(int d=1;d<=deep;d++){                   //按层打印
+            int start=pow(2,deep-d)-1;
+            int dist=pow(2,deep-d+1);               //计算每层的间距
+            //cout<<"d== "<<d<<"start= "<<start<<" dist= "<<dist<<endl;
+
+            for(int j=1;j<=pow(2,d-1);j++){         //打印每层的元素
+                if(j==1)                            //打印第一个元素
+                    cout<<setw(start)<<" ";         //打印行首空格
+                else
+                    cout<<setw(dist)<<" ";          //打印行间空格
+
+                if(hasnode[i])
+                    cout<<setw(wkey)<<key[i];       //节点存在则打印节点
+                else
+                    cout<<setw(wkey)<<"*";          //节点不存在则打印空格
+
+
+                i++;                                //节点数增加
+            }
+            cout<<endl;                             //一层打印完成换行
+            //增加打印斜线的控制
+            cout<<endl;
+        }
+    }
+
 
 
     //非递归的查找最小值
