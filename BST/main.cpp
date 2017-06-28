@@ -106,14 +106,45 @@ void test3(){
     bst.BFSPrintBST();
 
 
-    cout<<"The MIN key is : "<<bst.MinKey()<<endl;
+    cout<<"The MIN key is : "<<bst.MinNode2()<<endl;
 
-    cout<<"The MAX key is : "<<bst.MaxKey()<<endl;
+    cout<<"The MAX key is : "<<bst.MaxNode()<<endl;
 }
 
+//测试删除节点程序
+void test4(){
+    //两种定义形式都是可以的
+    //BST<int,int> bst=BST<int,int>();
+    BST<int,int> bst;
+    int arr[]={41,22,58,15,33,50,60,13,28,37,42,53};
+    //        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11}
+    int n=12;
+    //int* arr=generateRandomArray(n,1,99);
+    cout<<"The data is : "<<endl;
+    for(int i=0;i<n;i++)
+        cout<<arr[i]<<" ";
+    cout<<endl;
+
+    cout<<"begin insert data to tree..."<<endl;
+    for(int i=0;i<n;i++)
+        bst.insert2(arr[i],i);
+
+    cout<<"DFS In Order printing..."<<endl;
+    bst.PrintBST();
+
+    //bst.delMin();
+    //bst.delMax();
+    //cout<<"After delete MIN and MAX ,the tree is ..."<<endl;
+
+
+    bst.delNode(22);
+    cout<<"After delete 22 ,the tree is ..."<<endl;
+    bst.PrintBST();
+
+}
 
 int main() {
 
-    test3();
+    test4();
     return 0;
 }

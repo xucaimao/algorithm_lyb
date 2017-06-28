@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <queue>
+#include <cassert>
 using namespace std;
 
 #ifndef BST_BST_H
@@ -25,6 +26,14 @@ private:
             //在这里折腾了我很久，因为把right写成了left
             //调试了很久也没找到错误原因，对比程序才最终发现
             //粗心害死人!!!
+        }
+
+        //复制节点的构造函数
+        Node(Node* node){
+            this->key=node->key;
+            this->value=node->value;
+            this->left=node->left;
+            this->right=node->right;
         }
     };
 
@@ -98,6 +107,89 @@ private:
         destroy(node->right);
         delete node;
         count--;
+    }
+
+    //在以node为根节点的二叉树中查找最小元素，返回节点的指针
+    Node* MinNode(Node* node){
+        if(node->left == NULL)
+            return node;
+        return MinNode(node->left);
+    }
+
+    //在以node为根节点的二叉树中查找最小元素，返回节点的指针
+    Node* MaxNode(Node* node){
+        if(node->right == NULL)
+            return node;
+        return MaxNode2(node->right);
+    }
+
+    //在以node为根节点的二叉树中删除最小元素,并返回新的根节点
+    Node* delMin(Node* node){
+        if(node->left==NULL){
+            //找到最小节点
+            Node* next=NULL;
+            //如果最小节点存在右子树(右子树中节点的值都大于该节点)，保存右子树的节点
+            if(node->right)
+                next=node->right;
+            delete node;    //删除节点本身
+            count--;        //注意此值的维护
+            return next;    //返回NULL或右子树的根节点，赋值给父节点的左孩子
+        }
+        node->left=delMin(node->left);
+        return node;
+    }
+
+    Node* delMax(Node* node){
+        if(node->right==NULL){
+            Node* next=NULL;
+            //如果最大节点存在左子树(左子树中节点的值都大于该节点)，保存左子树的节点
+            //如果不存在，该值为NULL。次实现比上面delMin的更简洁
+            next=node->left;
+            delete node;
+            count--;
+            return next;
+        }
+        node->right=delMax(node->right);
+        return node;
+    }
+
+    //在以node为根节点的竖二叉树中，删除值为key的节点，并返回新的二叉树的根
+    Node* delNode(Node* node,Key key){
+        if(node==NULL)
+            return NULL;
+        if(key < node->key){
+            node->left=delNode(node->left,key);
+        }
+        else if(key > node->key){
+            node->right=delNode(node->right,key);
+        }
+        else{   //找到该节点
+            if(node->left==NULL){
+                Node* next=node->right;
+                delete node;
+                count--;
+                return next;
+            }
+            else if(node->right==NULL){
+                Node* next=node->left;
+                delete node;
+                count--;
+                return next;
+            }
+            else{   //左右孩子都不为空
+
+                //找到右子树中的最小节点,并复制一份
+                //复制节点是因为下面要删除该节点，一旦删除指针就失效了
+                Node* next=new Node( MinNode(node->right) );
+                count++;
+                //这里不能直接把node->right复制给next->right,考虑到右子树只有一个节点的情况
+                next->right=delMin(node->right);
+                next->left=node->left;
+                delete node;
+                count--;
+                return next;
+            }
+        }
     }
 
 public:
@@ -210,7 +302,7 @@ public:
         cout<<endl;
     }
 
-    //
+    //广度遍历
     void BFSPrintBST(){
         queue<Node*> q;
         Node* p;
@@ -229,19 +321,48 @@ public:
         cout<<endl;
     }
 
-    Value MinKey(){
+    //非递归的查找最小值
+    Value MinNode(){
+        assert(count!=0);
         Node* p=root;
         while(p->left)
             p=p->left;
         return p->value;
     }
 
+    //递归形式的查找最小值
+    Value MinNode2(){
+        assert(count!=0);
+        Node* minnode=MinNode(root);
+        return minnode->value;
+    }
 
-    Value MaxKey(){
+    //非递归的查找最大值
+    Value MaxNode(){
         Node* p=root;
         while(p->right)
             p=p->right;
         return p->value;
+    }
+
+    void delMin(){
+        if(root)    //根不为空才进行操作
+            delMin(root);
+    }
+
+    void delMax(){
+        if(root)    //根不为空才进行操作
+            delMax(root);
+    }
+
+    bool delNode(Key key){
+        assert(count!=0);
+        if(contain(key)){
+            root=delNode(root,key);
+            return true;
+        }
+        else
+            return false;
     }
 };
 
